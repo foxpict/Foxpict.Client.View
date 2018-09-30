@@ -1,0 +1,60 @@
+import { Component, AfterViewInit } from "@angular/core";
+import { DeliveryService } from "../../../service/delivery.service";
+import { ViewModel } from "../../../service/viewmodel";
+
+@Component({
+  selector: 'preview',
+  templateUrl: './preview.screen.html',
+  styleUrls: ['./preview.screen.scss']
+})
+export class PreviewScreen implements AfterViewInit {
+  private LOGEVENT: string = "[Foxpict][PreviewScreen]";
+
+  /**
+    * コンストラクタ
+    * @param viewmodel ViewModel
+   */
+  constructor(
+    private viewmodel: ViewModel,
+    private deliverySrv: DeliveryService) {
+
+  }
+
+  ngAfterViewInit() {
+    console.debug(this.LOGEVENT, "[ngAfterViewInit]", "- IN", this.viewmodel.screenStatus.mPreviewParam);
+    // プレビューコンテント更新要求メッセージを送信する
+    if (this.viewmodel.screenStatus.mPreviewParam != null) {
+      let previewParam = this.viewmodel.screenStatus.mPreviewParam as PreviewParam
+      if (previewParam.Position != undefined)
+        this.deliverySrv.invalidatePreviewContentList(previewParam.Position);
+    }
+    console.debug(this.LOGEVENT, "[ngAfterViewInit]", "- OUT");
+  }
+
+  /**
+   * 「前へ」ボタン押下時のイベントハンドラ
+   */
+  onPrevPreview() {
+    this.deliverySrv.invalidatePreviewContentListPrev();
+  }
+
+  /**
+   * 「次へ」ボタン押下時のイベントハンドラ
+   */
+  onNextPreview() {
+    this.deliverySrv.invalidatePreviewContentListNext();
+  }
+
+  /**
+   *
+   */
+  onUpdateContentAttribute() {
+    console.debug("入力文字列", this.viewmodel.PreviewContent.Comment);
+    // 表示中のコンテントを更新する
+    this.deliverySrv.updateContent(this.viewmodel.PreviewContent);
+  }
+}
+
+export interface PreviewParam {
+  Position: number | null;
+}

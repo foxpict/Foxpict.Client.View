@@ -1,0 +1,84 @@
+<mat-sidenav-container class="app-container">
+  <mat-sidenav mode="side" opened>
+    <app-navigation></app-navigation>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!--Navbar-->
+    <mdb-navbar [containerInside]="false" SideClass="navbar navbar-expand-lg navbar-light white">
+
+      <!-- Navbar brand -->
+      <logo class="ml-3">
+        <a class="navbar-brand" href="https://mdbootstrap.com/angular/angular-bootstrap-getting-started/">
+          <strong class="blue-text">MDB</strong>
+        </a>
+      </logo>
+
+      <!-- Collapsible content -->
+      <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" mdbWavesEffect>Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/angular/angular-bootstrap-getting-started/" target="_blank"
+              mdbWavesEffect>About
+              MDB
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/angular/getting-started/" target="_blank" mdbWavesEffect>Free
+              download
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/angular/angular-tutorial/" target="_blank" mdbWavesEffect>Free
+              tutorials
+            </a>
+          </li>
+        </ul>
+        <!-- Links -->
+
+        <!-- Search form -->
+        <ul class="navbar-nav nav-flex-icons">
+
+          <li class="nav-item">
+            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank" mdbWavesEffect>
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank" mdbWavesEffect>
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light"
+              target="_blank" mdbWavesEffect>
+              <i class="fa fa-github mr-2"></i>MDB GitHub
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://mdbootstrap.com/product/angular-bootstrap-pro/" class="ml-1 nav-link border border-light rounded"
+              mdbWavesEffect>
+              <i class="fa fa-diamond left"></i> Go Pro</a>
+          </li>
+        </ul>
+      </links>
+      <!-- Collapsible content -->
+
+    </mdb-navbar>
+    <!--/.Navbar-->
+    <main [ngClass]="{'py-0 px-0 my-0 mx-0': specialPage}" class="mx-lg-5">
+      <div class="mt-5">
+        <button (click)="onClicked()">intermittent</button><br>
+        <button (click)="onIpcSend_TrnsTopscreen()">onIpcSend_TrnsTopscreen</button><br>
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
