@@ -28,34 +28,7 @@ export class AppComponent {
     private delivery: DeliveryService
   ) { }
 
-  onClicked() {
-    // 定期的な通知メッセージの取得を開始する。
-    console.info("onClicked");
 
-    // TODO: 下記を適切な場所から実行するようにする（専用のサービスを作成する）
-    if (this.subscription != null) {
-      console.info("Stop intermittent");
-      this.subscription.unsubscribe();
-      this.subscription = null;
-    } else {
-      console.info("Start intermittent");
-      this.subscription = Observable.interval(5000)
-        .subscribe(() => {
-          this.httpClientService.intermittent()
-            .then(
-              (response) => {
-                console.info("intermittent");
-                const m: PseudoNotificationResponse = response;
-                m.messages.forEach((_, i) => {
-                  this.messaging.localSend(_.eventName, _.data);
-                });
-              })
-            .catch(
-              (error) => console.log(error)
-            );
-        });
-    }
-  }
 
   onIpcSend_TrnsTopscreen() {
     // BFFにIPCメッセージを送信する

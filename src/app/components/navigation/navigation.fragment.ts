@@ -3,6 +3,9 @@ import { MessagingService } from '../../service/messaging.service';
 import { DeliveryService } from '../../service/delivery.service';
 import { ViewModel } from '../../service/viewmodel';
 import { IpcUpdatePropResponse } from '../../service/contract/response.contract';
+import { Subscription, Observable } from 'rxjs';
+import { HttpClientService } from '../../http-client.service';
+import { PseudoNotificationResponse } from '../../app.component';
 
 @Component({
   selector: 'app-navigation',
@@ -15,6 +18,7 @@ export class NavigationFragment implements OnInit {
   clicked: boolean;
 
   constructor(
+    private httpClientService: HttpClientService,
     private messaging: MessagingService,
     private delivery: DeliveryService,
     public viewModel: ViewModel) {
@@ -28,6 +32,42 @@ export class NavigationFragment implements OnInit {
     this.clicked = val;
   }
 
+  subscription: Subscription | null;
+
+  onLoadContentList(): void {
+    console.debug("IN");
+    this.httpClientService.intermittentParameterQuery = "mode=1";
+    console.debug("OUT");
+  }
+
+  onClicked() {
+    // 定期的な通知メッセージの取得を開始する。
+    console.info("onClicked");
+
+    // TODO: 下記を適切な場所から実行するようにする（専用のサービスを作成する）
+    if (this.subscription != null) {
+      console.info("Stop intermittent");
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    } else {
+      console.info("Start intermittent");
+      this.subscription = Observable.interval(5000)
+        .subscribe(() => {
+          this.httpClientService.intermittent()
+            .then(
+              (response) => {
+                console.info("intermittent");
+                const m: PseudoNotificationResponse = response;
+                m.messages.forEach((_, i) => {
+                  this.messaging.localSend(_.eventName, _.data);
+                });
+              })
+            .catch(
+              (error) => console.log(error)
+            );
+        });
+    }
+  }
 
   /**
    * 戻る遷移ボタン押下
