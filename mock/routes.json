@@ -1,0 +1,6 @@
+{
+  "/ipc/intermittent?mode=1":"/content-list_1",
+  "/ipc/intermittent?mode=2":"/preview_1",
+  "/ipc/intermittent?mode=3":"/category-tree_1",
+  "/ipc/intermittent":"/empty"
+}
