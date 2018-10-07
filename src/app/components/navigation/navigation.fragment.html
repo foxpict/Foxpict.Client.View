@@ -1,42 +1,14 @@
-<!--Main Navigation-->
+<div>
+  <button mat-button (click)="onBACK()" color="primary">戻る遷移</button><br>
+  <button mat-button (click)="onTRNS_TOPSCREEN()" color="primary">TRNS_TOPSCREEN</button><br>
+  <button mat-button (click)="onTrnsFinder()" color="primary">ファインダ画面表示</button><br>
+  <button mat-button (click)="onACT_REQINVALIDATE_CATEGORYTREE()" color="primary">ACT_REQINVALIDATE_CATEGORYTREE</button><br>
+  <button mat-button (click)="onDebugTransrationRoot()" color="primary">ルート状態に強制遷移</button><br>
+  <button mat-button (click)="onIntermittent()">intermittent</button><br>
+  <button mat-button (click)="onIpcSend_TrnsTopscreen()">onIpcSend_TrnsTopscreen</button><br>
+  <button mat-button (click)="onLoadCategoryTree()" color="primary">カテゴリツリー読み込み(MOCK)</button><br>
+  <button mat-button (click)="onLoadContentList()" color="primary">コンテントリスト読み込み(MOCK)</button><br>
+  <button mat-button (click)="onLoadPreview()" color="primary">プレビュー画像読み込み(MOCK)</button><br>
+</div>
 
-
-  <!-- Sidebar -->
-
-  <div class="sidebar-fixed">
-
-    <a class="logo-wrapper waves-effect">
-      <img src="../../../../assets/img/angular-mdb.png" class="img-fluid" alt="">
-    </a>
-
-    <div class="list-group list-group-flush">
-
-      <a routerLink="dashboards/v1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-        <i class="fa fa-pie-chart mr-3"></i>Dashboard
-      </a>
-      <a routerLink="profiles/profile1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-        <i class="fa fa-user mr-3"></i>Profile</a>
-      <a routerLink="tables/table1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-        <i class="fa fa-table mr-3"></i>Tables</a>
-      <a routerLink="maps/map1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-        <i class="fa fa-map mr-3"></i>Maps</a>
-      <a routerLink="nonExistingPath" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-        <i class="fa fa-exclamation mr-3"></i>404</a>
-
-    </div>
-
-    <div>
-      <button mat-button (click)="onBACK()" color="primary">戻る遷移</button><br>
-      <button mat-button (click)="onTRNS_TOPSCREEN()" color="primary">TRNS_TOPSCREEN</button><br>
-      <button mat-button (click)="onTrnsFinder()" color="primary">ファインダ画面表示</button><br>
-      <button mat-button (click)="onACT_REQINVALIDATE_CATEGORYTREE()" color="primary">ACT_REQINVALIDATE_CATEGORYTREE</button>
-      <button mat-button (click)="onDebugTransrationRoot()" color="primary">ルート状態に強制遷移</button>
-    </div>
-
-    <category-tree *ngIf="viewModel.screenStatus.finder"></category-tree>
-
-  </div>
-  <!-- Sidebar -->
-
-
-<!--Main Navigation-->
+<category-tree *ngIf="viewModel.screenStatus.finder"></category-tree>

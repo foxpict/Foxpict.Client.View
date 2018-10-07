@@ -34,15 +34,31 @@ export class NavigationFragment implements OnInit {
 
   subscription: Subscription | null;
 
+  /**
+   * MOCKBFFからコンテント一覧を読み込む
+   */
   onLoadContentList(): void {
-    console.debug("IN");
     this.httpClientService.intermittentParameterQuery = "mode=1";
-    console.debug("OUT");
   }
 
-  onClicked() {
+  /**
+   * MOCKBFFからプレビューを読み込む
+   */
+  onLoadPreview(): void {
+    this.httpClientService.intermittentParameterQuery = "mode=2";
+  }
+
+  /**
+   *
+   */
+  onLoadCategoryTree(): void {
+    this.viewModel.screenStatus.showFinder();
+    this.httpClientService.intermittentParameterQuery = "mode=3";
+  }
+
+  onIntermittent(): void {
     // 定期的な通知メッセージの取得を開始する。
-    console.info("onClicked");
+    console.info("onIntermittent");
 
     // TODO: 下記を適切な場所から実行するようにする（専用のサービスを作成する）
     if (this.subscription != null) {

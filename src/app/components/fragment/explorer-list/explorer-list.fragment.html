@@ -1,21 +1,8 @@
-ee
-<div class="row">
-  <div class="col-3" *ngFor="let category of viewmodel.ThumbnailListPageItem; let i = index">
-    {{category.Category.Name}} <button mat-button (click)="showContentList(category.Category)">表示</button>
-  </div>
-</div>
-<div class="row">
-  <div class="col-1" *ngFor="let article of viewmodel.ContentListPageItem; let i = index">
-    <!-- Card -->
-    <div class="card" style="margin-bottom:10px">
-      <!-- Card image -->
-      <img class="card-img-top" src="{{article.ThumbnailUrl}}" alt="Card image cap">
-      <!-- Card content -->
-      <div class="card-body">
-        <!-- Title -->
-        <h6 class="card-title"><a (click)="onClick(article, i)">{{article.Content.Name}}</a></h6>
-      </div>
-    </div>
-    <!-- Card -->
-  </div>
+<div class="explorer-list">
+  <mat-card *ngFor="let article of viewmodel.ContentListPageItem; let i = index" class="thumnblist-card">
+    <mat-card-header>
+      <mat-card-title><a (click)="onClick(article, i)">{{article.Content.Name}}</a></mat-card-title>
+    </mat-card-header>
+    <img mat-card-image class="humbnail-card-image" src="{{article.ThumbnailUrl}}" [alt]="article.Content.Name">
+  </mat-card>
 </div>

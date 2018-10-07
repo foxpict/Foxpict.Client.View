@@ -10,12 +10,14 @@ import { CategoryTreeFragment } from "./category-tree/category-tree.fragment";
 import { LabelTreeFragment } from "./label-tree/label-tree.fragment";
 import { ExplorerListFragment } from "./explorer-list/explorer-list.fragment";
 import { ContentPreviewFragment } from "./content-preview/content-preview.fragment";
+import { MatMaterialModule } from "../../mat-material/mat-material.module";
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    MatMaterialModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,

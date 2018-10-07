@@ -1,25 +1,26 @@
-{{viewmodel.PreviewContent?.Id}}<br>
-{{viewmodel.PreviewContent?.Name}}<br>
-{{viewmodel.PreviewContent?.ReadableDate}}<br>
-{{viewmodel.PreviewContent?.ReadableFlag}}<br>
-{{viewmodel.PreviewContent?.ReadableCount}}<br>
-{{viewmodel.PreviewContent?.LastReadDate}}<br>
+<mat-drawer-container>
+  <mat-drawer mode="side" position="end" opened style="width: 150px">
+    {{viewmodel.PreviewContent?.Id}}<br>
+    {{viewmodel.PreviewContent?.Name}}<br>
+    {{viewmodel.PreviewContent?.ReadableDate}}<br>
+    {{viewmodel.PreviewContent?.ReadableFlag}}<br>
+    {{viewmodel.PreviewContent?.ReadableCount}}<br>
+    {{viewmodel.PreviewContent?.LastReadDate}}<br>
 
-<div>
-  <button mat-button (click)="onPrevPreview()" color="primary">前へ</button>
-  <button mat-button (click)="onNextPreview()" color="primary">次へ</button>
-</div>
-
-<form *ngIf="viewmodel?.PreviewContent != null">
-  <mat-form-field>
-    <textarea matInput placeholder="コメント" [(ngModel)]="viewmodel.PreviewContent.Comment" name="comment"></textarea>
-  </mat-form-field>
-  <div>
-    <button mat-button (click)="onUpdateContentAttribute()">保存</button>
-  </div>
-</form>
-
-<!--<img [src]="viewmodel.PreviewUrl" class="image-vfit">-->
-
-<img src="http://www.sozai-dx.com/photo/sora/sora_003.jpg" class="image-vfit"/>
-
+    <form *ngIf="viewmodel?.PreviewContent != null">
+      <mat-form-field>
+        <textarea matInput placeholder="コメント" [(ngModel)]="viewmodel.PreviewContent.Comment" name="comment"></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-button (click)="onUpdateContentAttribute()">保存</button>
+      </div>
+    </form>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div>
+      <button mat-button (click)="onPrevPreview()" color="primary">前へ</button>
+      <button mat-button (click)="onNextPreview()" color="primary">次へ</button>
+    </div>
+    <img [src]="viewmodel.PreviewUrl" class="image-vfit">
+  </mat-drawer-content>
+</mat-drawer-container>
