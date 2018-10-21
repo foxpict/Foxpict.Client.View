@@ -6,6 +6,14 @@ import { IpcMessage } from './service/contract/delivery.contract';
 export class HttpClientService {
 
   /**
+   * intermittentリクエストのクエリに付与するパラメータ
+   *
+   * 値はintermittentが処理されるたびにリセットします。
+   * 空文字の場合は、クエリへの付与は行ないません。
+   */
+  intermittentParameterQuery: string = "";
+
+  /**
    * リクエストヘッダを定義
    *
    * @private
@@ -13,8 +21,9 @@ export class HttpClientService {
    */
   //private headers: any = new Headers({'Content-Type': 'application/json'});
 
-  //private host: string = 'https://foxpict-client-web.herokuapp.com/api';
-  private host: string = 'https://localhost:5001/api';
+  //private host: string = 'https://foxpict-bff-web.herokuapp.com/api';
+  private host: string = 'http://localhost:5011/api';
+  //private host: string = 'http://localhost:3000'; // ローカルMOCKサーバ
 
   /**
    * コンストラクタ. HttpClientService のインスタンスを生成する
@@ -38,13 +47,33 @@ export class HttpClientService {
       })
     };
 
-    return this.http.post(this.host + '/ipc/intermittent', null, httpOptions)
-      .toPromise()
-      .then((res) => {
-        const response: any = res;
-        return response;
-      })
-      .catch(this.errorHandler);
+    let requestUrl = this.host + '/ipc/intermittent';
+    if (this.intermittentParameterQuery != "") {
+      // クエリーは、ローカルMOCKサーバ使用時のみ指定できる
+      requestUrl += "?" + this.intermittentParameterQuery;
+      this.intermittentParameterQuery = "";
+
+      return this.http.get(requestUrl, httpOptions)
+        .toPromise()
+        .then((res) => {
+          const response: any = res;
+          console.debug("response", res);
+          return response;
+        })
+        .catch(this.errorHandler);
+    } else {
+      // TODO: MOCKサーバのintermittentがPOSTなのでGETに修正するまでは、MOCKサーバに対してはクエリーは処理しない。
+      return this.http.post(requestUrl, httpOptions)
+        .toPromise()
+        .then((res) => {
+          const response: any = res;
+          console.debug("response", res);
+          return response;
+        })
+        .catch(this.errorHandler);
+    }
+
+
   }
 
   /**
