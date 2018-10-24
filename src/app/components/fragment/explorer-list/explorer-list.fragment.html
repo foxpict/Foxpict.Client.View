@@ -1,8 +1,0 @@
-<div class="explorer-list">
-  <mat-card *ngFor="let article of viewmodel.ContentListPageItem; let i = index" class="thumnblist-card">
-    <mat-card-header>
-      <mat-card-title><a (click)="onClick(article, i)">{{article.Content.Name}}</a></mat-card-title>
-    </mat-card-header>
-    <img mat-card-image class="humbnail-card-image" src="{{article.ThumbnailUrl}}" [alt]="article.Content.Name">
-  </mat-card>
-</div>
