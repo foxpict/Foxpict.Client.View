@@ -1,11 +1,34 @@
-<div class="d-flex">
-  <div>
-    追加していく
+<div class="container fit-height">
+  <div class="row fix-height-50">
+    <div class="col fix-height-100">
+      <nb-list>
+        <nb-list-item *ngFor="let fruit of fruits">
+          {{ fruit }}
+        </nb-list-item>
+      </nb-list>
+    </div>
+    <div class="col fix-height-100">
+      <nb-list>
+        <nb-list-item *ngFor="let fruit of fruits">
+          {{ fruit }}
+        </nb-list-item>
+      </nb-list>
+    </div>
+    <div class="col fix-height-100">
+      <nb-list>
+        <nb-list-item *ngFor="let fruit of fruits">
+          {{ fruit }}
+        </nb-list-item>
+      </nb-list>
+    </div>
   </div>
-  <div>
-    追加していく
-  </div>
-  <div>
-    追加していく
+  <div class="row fix-height-50">
+    <div class="col fix-height-100">
+      <nb-list>
+        <nb-list-item *ngFor="let fruit of fruits">
+          {{ fruit }}
+        </nb-list-item>
+      </nb-list>
+    </div>
   </div>
 </div>

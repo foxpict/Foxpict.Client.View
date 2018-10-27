@@ -18,6 +18,7 @@ import {
   NbPopoverModule,
   NbContextMenuModule,
   NbProgressBarModule,
+  NbListModule,
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -26,12 +27,14 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { FOXPICT_THEME } from './styles/theme.foxpict';
 import { MainLayoutComponent } from './layouts';
+import { HeaderComponent } from './components';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
 const NB_MODULES = [
   NbCardModule,
   NbLayoutModule,
+  NbListModule,
   NbTabsetModule,
   NbRouteTabsetModule,
   NbMenuModule,
@@ -49,13 +52,14 @@ const NB_MODULES = [
 ];
 
 const COMPONENTS = [
-  MainLayoutComponent
+  MainLayoutComponent,
+  HeaderComponent,
 ];
 
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
-      name: 'cosmic',
+      name: 'foxpict',
     },
     [DEFAULT_THEME, FOXPICT_THEME],
   ).providers,

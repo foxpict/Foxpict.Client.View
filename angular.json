@@ -27,8 +27,11 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ionicons/dist/scss/ionicons.scss",
+              "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/app/@theme/styles/styles.scss"
+              "src/app/@theme/styles/styles.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           },
