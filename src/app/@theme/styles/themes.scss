@@ -1,0 +1,7 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes';
+
+$nb-enabled-themes: (default, cosmic, corporate, foxpict);
+
+$nb-themes: nb-register-theme((
+), foxpict, default);
