@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { IpcUpdatePropResponse, CategoryListUpdateProp, Content, IpcUpdateViewResponse, Category, ThumbnailListPageItem, ContentListPageItem, ContentListParam } from "../data";
+import { IpcUpdatePropResponse, CategoryListUpdateProp, Content, IpcUpdateViewResponse, Category, ThumbnailListPageItem, ContentListPageItem, ContentListParam, ExplorerSplitListItem } from "../data";
 import { ViewModelService } from "./view-model.service";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -63,7 +63,9 @@ export class CourierService {
 
       switch (response.PropertyName) {
         case "CategoryTree":
-          // TODO: 実装予定
+          let targetCategoryId: number = +response.Hint;
+          const categoryies: Category[] = JSON.parse(response.Value);
+          this.updateViewModelExplorerSplitList(targetCategoryId, categoryies);
           break;
         case "ContentList":
           {
@@ -160,6 +162,60 @@ export class CourierService {
 
       this.viewModel.ContentListPageItem.push(listitem);
     });
+  }
+
+  /**
+   * エクスプローラー画面用ビューモデルを更新します。
+   *
+   * @param targetCategoryId
+   * @param children
+   */
+  private updateViewModelExplorerSplitList(targetCategoryId: number, children: Category[]) {
+    console.group(this.LOGEVENT + "[updateExplorerSplitList]");
+    console.debug("[updateExplorerSplitList]", "IN");
+    if (children.length != 0) {
+      let index = this.viewModel.ExplorerSplitedListItems.findIndex((prop: ExplorerSplitListItem) => {
+        if (prop.items != null &&
+          prop.items.findIndex((prop2: Category) => prop2.Id === targetCategoryId) > -1) return true;
+        return false;
+      });
+
+      let targetItems: ExplorerSplitListItem[] = this.viewModel.ExplorerSplitedListItems;
+
+      // 更新対象がリストの末尾の場合は、新たな要素をリストへ追加する
+      if (index + 1 == this.viewModel.ExplorerSplitedListItems.length) {
+        // 新たな要素を末尾に追加する
+        let item: ExplorerSplitListItem = {
+          categoryId: targetCategoryId,
+          items: children
+        };
+        targetItems.push(item);
+      } else if (index == undefined) {
+        // リストの要素をクリアして、新たなリストを作成する
+        let item: ExplorerSplitListItem = {
+          categoryId: targetCategoryId,
+          items: children
+        };
+        let newArray = [];
+        newArray.push(item);
+        targetItems = newArray;
+      } else {
+        // indexより大きい要素を削除する
+        // index位置の要素を更新する。
+        let newArray = this.viewModel.ExplorerSplitedListItems.slice(0, index + 2);
+        let lastItem: ExplorerSplitListItem = newArray[newArray.length - 1];
+        lastItem.items = children;
+
+        targetItems = newArray;
+      }
+
+      this.viewModel.ExplorerSplitedListItems = targetItems;
+    } else {
+      console.info("追加項目が空のため、新たな分割リストは登録しません。");
+    }
+
+    console.debug("[updateExplorerSplitList]", "OUT");
+    console.groupEnd();
   }
 
   /**

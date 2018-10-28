@@ -3,6 +3,11 @@
     <app-header></app-header>
   </nb-layout-header>
   <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+      <button class="btn btn-primary btn-xs" (click)="onIntermittent()">onIntermittent</button>
+      <button class="btn btn-primary btn-xs" (click)="sendRootback()">強制遷移</button>
+      <button class="btn btn-primary btn-xs" (click)="sendTransTopScreen()">トップスクリーン</button>
+      <button class="btn btn-primary btn-xs" (click)="sendACT_REQINVALIDATE_CATEGORYTREE()">カテゴリ取得</button>
+
     <ng-content select="nb-menu"></ng-content>
   </nb-sidebar>
   <nb-layout-column>

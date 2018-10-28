@@ -87,7 +87,7 @@ export class DeliveryService {
   /**
    * カテゴリ一覧の更新を行います
    *
-   * @param categoryId カテゴリツリーを取得したい親カテゴリのID
+   * @param categoryId カテゴリのID
    */
   public updateCategoryTree(categoryId: number) {
     console.info("[Foxpict][Delivery][updateCategoryTree] ");

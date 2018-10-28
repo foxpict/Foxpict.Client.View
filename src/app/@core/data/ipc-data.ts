@@ -92,3 +92,12 @@ export interface UpdateContentListParam {
    */
   LabelId?: number;
 }
+
+export interface PseudoNotificationResponse {
+  messages: PseudoNotificationItem[];
+}
+
+export interface PseudoNotificationItem {
+  eventName: string;
+  data: IpcResponse;
+}
