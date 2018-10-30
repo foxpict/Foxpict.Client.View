@@ -71,6 +71,14 @@ export class MainLayoutComponent {
   }
 
   /**
+   * デバッグ用に、ファインダー画面を表示する
+   */
+  sendTransFinder() {
+    console.log("sendTransFinder");
+    this.delivery.showFinder();
+  }
+
+  /**
    * デバッグ用に、メイン画面のイベントハンドラとして定義する
    */
   sendACT_REQINVALIDATE_CATEGORYTREE() {

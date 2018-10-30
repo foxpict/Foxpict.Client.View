@@ -20,6 +20,10 @@ export class NavigationService {
       let screenName = response.NextScreenName;
       console.debug(this.LOGEVENT, "[UpdateView$] ScreenName:", screenName);
       switch (screenName) {
+        case "Dashboard":
+          this.viewmodel.screenStatus.showDashboard();
+          this.router.navigate(['/pages']);
+          break;
         case "Finder":
           this.viewmodel.screenStatus.showFinder();
           this.router.navigate(['/pages/album/explorer']);
@@ -32,7 +36,7 @@ export class NavigationService {
           this.viewmodel.screenStatus.showPreview({
             Position: parseInt(String(response.Parameter))
           });
-          this.router.navigate(['/pages/album//preview']);
+          this.router.navigate(['/pages/album/preview']);
           break;
         default:
           console.warn(this.LOGEVENT, "[UpdateView$] 未定義の画面名", screenName);

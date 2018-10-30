@@ -43,7 +43,7 @@ export class ViewModelService {
  * 画面表示状態
  */
 export class ScreenStatus {
-  mPreviewParam: PreviewParam = null;
+  previewParam: PreviewParam = null;
 
   /**
    * ダッシュボード画面の表示を行う
@@ -68,7 +68,7 @@ export class ScreenStatus {
    */
   showPreview(param: object) {
     let paramObj = param as PreviewParam;
-    this.mPreviewParam = paramObj;
+    this.previewParam = paramObj;
 
     this.clear();
     this.preview = true;
