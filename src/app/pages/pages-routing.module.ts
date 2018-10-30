@@ -5,9 +5,12 @@ import { PagesComponent } from './pages.component';
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
-  children:[
+  children: [
     {
-      path:'album', loadChildren: './album/album.module#AlbumModule'
+      path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'
+    },
+    {
+      path: 'album', loadChildren: './album/album.module#AlbumModule'
     }
   ]
 }];
