@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, TemplateRef, OnInit } from '@angular/core';
 import { ViewModelService } from 'src/app/@core/service/view-model.service';
 import { PreviewParam } from 'src/app/@core/data';
 import { DeliveryService } from 'src/app/@core/service/delivery.service';
@@ -8,8 +8,15 @@ import { DeliveryService } from 'src/app/@core/service/delivery.service';
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss']
 })
-export class PreviewComponent implements AfterViewInit {
+export class PreviewComponent implements OnInit, AfterViewInit {
+
   private LOGEVENT: string = "[Foxpict][PreviewComponent]";
+
+  /**
+   * テンプレートから「#pain」でマークしているng-templateを取得する
+   */
+  @ViewChild('pain')
+  pain: TemplateRef<any> = null;
 
   /**
    * コンストラクタ
@@ -22,6 +29,10 @@ export class PreviewComponent implements AfterViewInit {
     private viewmodel: ViewModelService,
   ) { }
 
+  ngOnInit(): void {
+    this.viewmodel.pain = this.pain;
+  }
+
   ngAfterViewInit(): void {
     // プレビューコンテント更新要求メッセージを送信する
     if (this.viewmodel.screenStatus.previewParam != null) {
@@ -29,5 +40,18 @@ export class PreviewComponent implements AfterViewInit {
       if (previewParam.Position != undefined)
         this.delivery.invalidatePreviewContentList(previewParam.Position);
     }
+  }
+
+  /**
+   * ペインからのイベントハンドラ呼び出しサンプル
+   */
+  prevPage() {
+    console.log("prevPage");
+    this.delivery.invalidatePreviewContentListPrev();
+  }
+
+  nextPage() {
+    console.log("nextPage");
+    this.delivery.invalidatePreviewContentListNext();
   }
 }

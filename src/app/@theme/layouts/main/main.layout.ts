@@ -4,6 +4,8 @@ import { HttpClientService } from "src/app/@core/utils/http-client.service";
 import { Subscription, interval } from "rxjs";
 import { MessagingService } from "src/app/@core/service/messaging.service";
 import { PseudoNotificationResponse } from "src/app/@core/data";
+import { Router } from "@angular/router";
+import { ViewModelService } from "src/app/@core/service/view-model.service";
 
 @Component({
   selector: 'app-main-layout',
@@ -15,6 +17,8 @@ export class MainLayoutComponent {
   subscription: Subscription | null;
 
   constructor(
+    public viewmodel: ViewModelService,
+    private router: Router,
     private delivery: DeliveryService,
     private messaging: MessagingService,
     private httpClientService: HttpClientService,
@@ -84,5 +88,14 @@ export class MainLayoutComponent {
   sendACT_REQINVALIDATE_CATEGORYTREE() {
     console.info("sendACT_REQINVALIDATE_CATEGORYTREE");
     this.delivery.updateCategoryTree(1);
+  }
+
+  sendACT_REQINVALIDATE_LABELTREE() {
+    console.info("sendACT_REQINVALIDATE_LABELTREE");
+    this.delivery.updateLabelTree(0);
+  }
+
+  navigateAlbumPreview() {
+    this.router.navigate(['pages', 'album', 'preview']);
   }
 }

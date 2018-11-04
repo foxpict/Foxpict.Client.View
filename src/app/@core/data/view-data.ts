@@ -1,4 +1,4 @@
-import { Category, Content } from ".";
+import { Category, Content, Label } from ".";
 
 export interface ThumbnailListPageItem {
   Selected: boolean;
@@ -16,7 +16,7 @@ export interface PreviewParam {
   Position: number | null;
 }
 
-export interface ExplorerSplitListItem {
+export interface ExplorerSplitCategoryListItem {
 
   /**
    * 親カテゴリのID
@@ -27,4 +27,8 @@ export interface ExplorerSplitListItem {
    * リストに表示するカテゴリ一覧
    */
   items: Category[];
+}
+
+export interface ExplorerSplitLabelListItem {
+  items: Label[];
 }

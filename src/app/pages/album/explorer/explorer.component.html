@@ -1,14 +1,27 @@
 <div class="container fit-height">
   <div class="row fix-height-50">
+      <button class="btn btn-dark btn-xs">カテゴリツリー一覧</button>
+      <button class="btn btn-dark btn-xs">ラベル絞り込みリスト</button>
+  </div>
+  <div class="row fix-height-50" *ngIf="enableLabelTreeList == false">
     <div *ngFor="let listItem of viewModel.ExplorerSplitedListItems" class="col fix-height-100">
       <nb-list>
         <nb-list-item *ngFor="let item of listItem.items">
-          <button class="btn btn-light btn-xs" (click)="selectedListItem(item)">{{ item.Name }}</button>
+          <button class="btn btn-dark btn-xs" (click)="selectedListItem(item)">{{ item.Name }}</button>
 
-          <button class="btn btn-light btn-xs" (click)="selectedListItemDisplayContent(item)">Show</button>
+          <button class="btn btn-dark btn-xs" (click)="selectedListItemDisplayContent(item)">Show</button>
         </nb-list-item>
       </nb-list>
     </div>
+  </div>
+  <div class="row fix-height-50" *ngIf="enableLabelTreeList == true">
+    <div *ngFor="let listItem of viewModel.ExplorerSplitedLabelListItems" class="col fix-height-100">
+        <nb-list>
+          <nb-list-item *ngFor="let item of listItem.items">
+            <button class="btn btn-dark btn-xs" (click)="selectedLabelListItem(item)">{{ item.Name }}</button>
+          </nb-list-item>
+        </nb-list>
+      </div>
   </div>
   <div class="row fix-height-50">
     <div class="col fix-height-100">
@@ -16,7 +29,7 @@
         <nb-card *ngFor="let article of viewModel.ContentListPageItem; let i = index">
           <nb-card-header (click)="showPreview(article, i)">{{article.Content.Name}}</nb-card-header>
           <nb-card-body>
-            <img src="{{article.ThumbnailUrl}}" [alt]="article.Content.Name">
+            <img class="thumbnail" src="{{article.ThumbnailUrl}}" [alt]="article.Content.Name">
           </nb-card-body>
         </nb-card>
       </div>

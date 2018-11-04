@@ -1,18 +1,23 @@
 <nb-layout>
   <nb-layout-header fixed>
     <app-header></app-header>
+    <button class="btn btn-primary btn-xs" (click)="onIntermittent()">onIntermittent</button>
+    <button class="btn btn-primary btn-xs" (click)="sendRootback()">強制遷移</button>
+    <button class="btn btn-primary btn-xs" (click)="sendTransTopScreen()">トップスクリーン</button>
+    <button class="btn btn-primary btn-xs" (click)="sendTransFinder()">Finder</button>
+    <button class="btn btn-primary btn-xs" (click)="sendACT_REQINVALIDATE_CATEGORYTREE()">カテゴリ取得</button>
+    <button class="btn btn-primary btn-xs" (click)="sendACT_REQINVALIDATE_LABELTREE()">ラベル取得</button>
+    <button class="btn btn-primary btn-xs" (click)="navigateAlbumPreview()">プレビュー</button>
   </nb-layout-header>
   <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
-      <button class="btn btn-primary btn-xs" (click)="onIntermittent()">onIntermittent</button>
-      <button class="btn btn-primary btn-xs" (click)="sendRootback()">強制遷移</button>
-      <button class="btn btn-primary btn-xs" (click)="sendTransTopScreen()">トップスクリーン</button>
-      <button class="btn btn-primary btn-xs" (click)="sendTransFinder()">Finder</button>
-      <button class="btn btn-primary btn-xs" (click)="sendACT_REQINVALIDATE_CATEGORYTREE()">カテゴリ取得</button>
-
     <ng-content select="nb-menu"></ng-content>
   </nb-sidebar>
   <nb-layout-column>
     <ng-content select="router-outlet"></ng-content>
+  </nb-layout-column>
+  <nb-layout-column *ngIf="viewmodel.pain != null" class="infopain-column">
+    <!-- インフォメーション用ペイン -->
+    <ng-container *ngTemplateOutlet="viewmodel.pain"></ng-container>
   </nb-layout-column>
   <nb-layout-footer fixed>Contact us</nb-layout-footer>
 </nb-layout>

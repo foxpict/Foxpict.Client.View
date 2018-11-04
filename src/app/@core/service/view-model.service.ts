@@ -1,11 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Content, ThumbnailListPageItem, ContentListPageItem, ExplorerSplitListItem, PreviewParam } from '../data';
+import { Injectable, TemplateRef } from '@angular/core';
+import {
+  Content,
+  ThumbnailListPageItem,
+  ContentListPageItem,
+  ExplorerSplitCategoryListItem,
+  PreviewParam,
+  PreviewInfo,
+  Category,
+  ExplorerSplitLabelListItem,
+} from '../data';
 import { SafeUrl } from '@angular/platform-browser';
 
 @Injectable()
 export class ViewModelService {
 
   constructor() { }
+
+  /** ペインのテンプレート */
+  pain: TemplateRef<any> = null;
 
   /** 画面表示状態 */
   screenStatus: ScreenStatus = new ScreenStatus();
@@ -19,6 +31,16 @@ export class ViewModelService {
    * プレビュー画面に表示するコンテント情報
    */
   PreviewContent: Content | null = null;
+
+  /**
+   *
+   */
+  PreviewContentLinkCategory: Category | null = null;
+
+  /**
+   * プレビュー画面の情報
+   */
+  PreviewInfo: PreviewInfo | null = null;
 
   /**
    * プレビュー画面の画像URL
@@ -35,7 +57,12 @@ export class ViewModelService {
    *
    * 各要素が分割リストUIコンテナの1つのコンテナと対応します。
    */
-  ExplorerSplitedListItems: ExplorerSplitListItem[] = [];
+  ExplorerSplitedListItems: ExplorerSplitCategoryListItem[] = [];
+
+  /**
+   * エクスプローラー画面の分割リストです
+   */
+  ExplorerSplitedLabelListItems: ExplorerSplitLabelListItem[] = [];
 }
 
 

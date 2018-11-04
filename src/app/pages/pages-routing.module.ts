@@ -11,6 +11,9 @@ const routes: Routes = [{
     },
     {
       path: 'album', loadChildren: './album/album.module#AlbumModule'
+    },
+    {
+      path: '', redirectTo: 'dashboard'
     }
   ]
 }];

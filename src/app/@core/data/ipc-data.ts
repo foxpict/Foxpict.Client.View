@@ -1,5 +1,6 @@
 import { Content } from "./model/content";
 import { Category } from "./model/category";
+import { Label } from ".";
 
 export interface IpcResponse {
   body: string;
@@ -73,9 +74,9 @@ export interface UpdateViewRequestItem {
  */
 export interface UpdateCategoryListParam {
   /**
-   *
+   * 絞り込み条件とするラベルIDリスト
    */
-  LabelId?: number;
+  LabelId?: number[];
 }
 
 /**
@@ -100,4 +101,9 @@ export interface PseudoNotificationResponse {
 export interface PseudoNotificationItem {
   eventName: string;
   data: IpcResponse;
+}
+
+export interface PreviewInfo {
+  TotalNum: number;
+  CurrentPos: number;
 }

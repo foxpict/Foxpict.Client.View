@@ -1,6 +1,19 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { IpcUpdatePropResponse, CategoryListUpdateProp, Content, IpcUpdateViewResponse, Category, ThumbnailListPageItem, ContentListPageItem, ContentListParam, ExplorerSplitListItem } from "../data";
+import {
+  IpcUpdatePropResponse,
+  CategoryListUpdateProp,
+  Content,
+  IpcUpdateViewResponse,
+  Category,
+  ThumbnailListPageItem,
+  ContentListPageItem,
+  ContentListParam,
+  ExplorerSplitCategoryListItem,
+  PreviewInfo,
+  Label,
+  ExplorerSplitLabelListItem,
+} from "../data";
 import { ViewModelService } from "./view-model.service";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -88,13 +101,21 @@ export class CourierService {
           }
           break;
         case "LabelTree":
-          // TODO: 実装予定
+          //let targetCategoryId: number = +response.Hint;
+          const labels: Label[] = JSON.parse(response.Value);
+          this.updateViewModelExplorerLabelSplitList(labels);
           break;
         case "PreviewUrl":
           this.previewUrl(response);
           break;
         case "PreviewContent":
           this.viewModel.PreviewContent = JSON.parse(response.Value) as Content;
+          break;
+        case "PreviewContentLinkCategory":
+          this.viewModel.PreviewContentLinkCategory = JSON.parse(response.Value) as Category;
+          break;
+        case "PreviewInfo":
+          this.viewModel.PreviewInfo = JSON.parse(response.Value) as PreviewInfo;
           break;
         default:
           console.warn(this.LOGEVENT, "[invalidateProp$] 処理できないプロパティ名", response.PropertyName);
@@ -174,25 +195,25 @@ export class CourierService {
     console.group(this.LOGEVENT + "[updateExplorerSplitList]");
     console.debug("[updateExplorerSplitList]", "IN");
     if (children.length != 0) {
-      let index = this.viewModel.ExplorerSplitedListItems.findIndex((prop: ExplorerSplitListItem) => {
+      let index = this.viewModel.ExplorerSplitedListItems.findIndex((prop: ExplorerSplitCategoryListItem) => {
         if (prop.items != null &&
           prop.items.findIndex((prop2: Category) => prop2.Id === targetCategoryId) > -1) return true;
         return false;
       });
 
-      let targetItems: ExplorerSplitListItem[] = this.viewModel.ExplorerSplitedListItems;
+      let targetItems: ExplorerSplitCategoryListItem[] = this.viewModel.ExplorerSplitedListItems;
 
       // 更新対象がリストの末尾の場合は、新たな要素をリストへ追加する
       if (index + 1 == this.viewModel.ExplorerSplitedListItems.length) {
         // 新たな要素を末尾に追加する
-        let item: ExplorerSplitListItem = {
+        let item: ExplorerSplitCategoryListItem = {
           categoryId: targetCategoryId,
           items: children
         };
         targetItems.push(item);
       } else if (index == undefined) {
         // リストの要素をクリアして、新たなリストを作成する
-        let item: ExplorerSplitListItem = {
+        let item: ExplorerSplitCategoryListItem = {
           categoryId: targetCategoryId,
           items: children
         };
@@ -203,7 +224,7 @@ export class CourierService {
         // indexより大きい要素を削除する
         // index位置の要素を更新する。
         let newArray = this.viewModel.ExplorerSplitedListItems.slice(0, index + 2);
-        let lastItem: ExplorerSplitListItem = newArray[newArray.length - 1];
+        let lastItem: ExplorerSplitCategoryListItem = newArray[newArray.length - 1];
         lastItem.items = children;
 
         targetItems = newArray;
@@ -215,6 +236,26 @@ export class CourierService {
     }
 
     console.debug("[updateExplorerSplitList]", "OUT");
+    console.groupEnd();
+  }
+
+  /**
+   *
+   * @param labels
+   */
+  private updateViewModelExplorerLabelSplitList(labels: Label[]) {
+    console.group(this.LOGEVENT + "[updateViewModelExplorerLabelSplitList]");
+    console.debug("[updateViewModelExplorerLabelSplitList]", "IN");
+
+    let targetItems: ExplorerSplitLabelListItem[] = this.viewModel.ExplorerSplitedLabelListItems;
+    targetItems.push(
+      {
+        items: labels
+      }
+    );
+    this.viewModel.ExplorerSplitedLabelListItems = targetItems;
+
+    console.debug("[updateViewModelExplorerLabelSplitList]", "OUT");
     console.groupEnd();
   }
 
